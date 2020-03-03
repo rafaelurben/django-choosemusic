@@ -1,0 +1,62 @@
+{% load static %}
+
+<html>
+   <head>
+      <title>Musikwahl - Login</title>
+      <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+      <link rel="shortcut icon" href="{% static 'choosemusic/favicon.ico' %}">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+   </head>
+   <body>
+       <button onclick="window.history.back();" type="button"><- Zurück</button>
+
+       <div class="container"><br>
+         <center>
+           <h2>Falls du einen Account hast, logge dich hier ein:</h2>
+         </center>
+       </div>
+
+       <div class="container"><br>
+       <div class="row align-items-center justify-content-center">
+       <div class="col-md-4">
+         <form action="" method="post">
+             {% csrf_token %}
+             <input type="hidden" name="next" value="/choosemusic">
+             <div class="form-group">
+                 <label for="id_username">Benutzername:</label>
+                 <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" class="form-control">
+                 <label for="id_password">Passwort:</label>
+                 <input type="password" name="password" autocomplete="current-password" required="" id="id_password" class="form-control">
+             </div>
+             <br>
+           <center>
+             <button type="submit" class="btn btn-success">Einloggen</button>
+           </center>
+         </form>
+
+         {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                  <div class="alert alert-info {% if message.tags %}{{ message.tags }}{% endif %}">
+                      <strong>Erfolgreich! </strong> {{ message }}
+                  </div>
+                  {% endif %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                  <div class="alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
+                      <strong>Fehler! </strong> {{ message }}
+                  </div>
+                  {% endif %}
+              {% endfor %}
+          </ul>
+         {% endif %}
+
+       <br>
+       </div>
+       </div>
+   </body>
+</html>

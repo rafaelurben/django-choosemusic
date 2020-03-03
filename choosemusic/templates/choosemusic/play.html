@@ -1,0 +1,33 @@
+{% load static %}
+
+<html>
+<head>
+    {% if song == False %}
+    <title>Musikwahl - Offline</title>
+    <meta http-equiv="refresh" content="2;URL={% url 'choosemusic:play' %}">
+    {% else %}
+    <title>Musikwahl - Live</title>
+    <meta http-equiv="refresh" content="{{ song.dauer }};URL={% url 'choosemusic:play' %}">
+    {% endif %}
+
+    <link rel="shortcut icon" href="{% static 'choosemusic/favicon.ico' %}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    {% if song == False %}
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <img style="height: auto;  width: 50%;" src="{% static 'choosemusic/images/offline.png' %}">
+    </div>
+    {% else %}
+    <iframe style='display:block;width:100%'
+        src="{{embedlink}}"
+        width="100%" height="100%" frameborder="0"
+        allowfullscreen="allowfullscreen"
+        mozallowfullscreen="mozallowfullscreen"
+        msallowfullscreen="msallowfullscreen"
+        oallowfullscreen="oallowfullscreen"
+        webkitallowfullscreen="webkitallowfullscreen"></iframe>
+    {% endif %}
+</body>
+</html>

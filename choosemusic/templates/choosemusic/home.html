@@ -1,0 +1,90 @@
+{% load static %}
+
+<html>
+   <head>
+      <title>Musikwahl - Home</title>
+      <link rel="stylesheet" href="{% static 'choosemusic/css/home.css' %}">
+      <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+      <link rel="shortcut icon" href="{% static 'choosemusic/favicon.ico' %}">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+   </head>
+   <body>
+       <div class="container"><br>
+         <center>
+           <h1 style="font-size:7.5vw">Musikwahl - Home</h1>
+         </center>
+       </div>
+
+       <div class="container"><br>
+           <div class="row align-items-center justify-content-center">
+               <div class="col-md-4">
+                   {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                            <div class="alert alert-info {% if message.tags %}{{ message.tags }}{% endif %}">
+                                <strong>Erfolgreich! </strong> {{ message }}
+                            </div>
+                            {% endif %}
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                            <div class="alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
+                                <strong>Fehler! </strong> {{ message }}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                   {% endif %}
+               </div>
+           </div>
+       </div>
+
+       <div id="buttons">
+
+           <a href="{% url 'choosemusic:suggest' %}">
+               <div id="suggest">
+                   <img class="icon" src="{% static 'choosemusic/images/icon_new.png' %}">
+               </div>
+           </a>
+
+           <a href="{% url 'choosemusic:suggestions' %}">
+               <div id="suggestions">
+                   <img class="icon" src="{% static 'choosemusic/images/icon_show.png' %}">
+               </div>
+           </a>
+
+           <br>
+
+           <a href="{% url 'choosemusic:playlist' %}">
+               <div id="playlist">
+                   <img class="icon" src="{% static 'choosemusic/images/icon_playlist.png' %}">
+               </div>
+           </a>
+
+           {% if user.is_authenticated %}
+           <a href="{% url 'choosemusic:logout' %}">
+               <div id="logout">
+                   <img class="icon" src="{% static 'choosemusic/images/icon_admin.png' %}">
+               </div>
+           </a>
+           {% else %}
+           <a href="{% url 'choosemusic:login' %}">
+               <div id="login">
+                   <img class="icon" src="{% static 'choosemusic/images/icon_admin.png' %}">
+               </div>
+           </a>
+           {% endif %}
+
+           <br>
+
+           <a href="{% url 'choosemusic:play' %}">
+               <div id="play">
+                   <img class="icon" src="{% static 'choosemusic/images/icon_play.png' %}">
+               </div>
+           </a>
+          <br>
+       </div>
+   </body>
+</html>

@@ -1,0 +1,75 @@
+{% load static %}
+
+<html>
+  <head>
+     <title>Musikwahl - Vorschläge</title>
+     <link rel="stylesheet" href="{% static 'choosemusic/css/suggestions.css' %}">
+     <link rel="stylesheet" media="screen" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="shortcut icon" href="{% static 'choosemusic/favicon.ico' %}">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="apple-mobile-web-app-capable" content="yes">
+     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  </head>
+  <body>
+     <button onclick="window.history.back();" type="button"><- Zurück</button>
+
+     <div class="container"><br>
+         <center>
+         <h1>Eingereichte Songs</h1>
+         </center>
+     </div>
+     <br>
+     <div class="container"><br>
+     <div class="row align-items-center justify-content-center">
+     <div class="col-md-4">
+         {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                  <div class="alert alert-info {% if message.tags %}{{ message.tags }}{% endif %}">
+                      <strong>Erfolgreich! </strong> {{ message }}
+                  </div>
+                  {% endif %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                  <div class="alert alert-danger {% if message.tags %}{{ message.tags }}{% endif %}">
+                      <strong>Fehler! </strong> {{ message }}
+                  </div>
+                  {% endif %}
+              {% endfor %}
+          </ul>
+         {% endif %}
+     </div>
+     <br>
+     </div>
+     </div>
+     <center>
+         <table style="margin-left: 20px;">
+            <th>
+                <tr style="color: black; ">
+                    <td>Titel</td>
+                    <td>Künstler</td>
+                    <td>Thumbnail (Link)</td>
+                    <td>Eingereicht von</td>
+                    <td>Status</td>
+                </tr>
+            </th>
+
+            {% for suggestion in suggestions %}
+            <tr>
+                <td>{{ suggestion.titel }}</td>
+                <td>{{ suggestion.kuenstler }}</td>
+                <td><a href="{{ suggestion.link }}"><img src="{{ suggestion.thumbnail }}"></a></td>
+                <td>{{ suggestion.benutzer }}</td>
+                <td>{{ suggestion.status }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">Keine Einreichungen vorhanden!</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+  </body>
+</html>
