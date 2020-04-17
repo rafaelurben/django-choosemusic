@@ -29,8 +29,6 @@ class Einreichung(models.Model):
 
     def getFromAPI(self):
         try:
-            from mysite.settings import Youtube_Data_API_v3
-
             if "&" in self.link:
                 self.link = self.link.split("&")[0]
 
@@ -40,8 +38,8 @@ class Einreichung(models.Model):
             else:
                 id = self.link.split("v=")[1]
 
-            requestlink = ("https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+str(id)+"&key="+str(Youtube_Data_API_v3))
-            requestlink2 = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id="+str(id)+"&key="+str(Youtube_Data_API_v3))
+            requestlink = ("https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+str(id)+"&key="+str(settings.Youtube_Data_API_v3))
+            requestlink2 = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id="+str(id)+"&key="+str(settings.Youtube_Data_API_v3))
 
             r = requests.get(requestlink)
             r2 = requests.get(requestlink2)
