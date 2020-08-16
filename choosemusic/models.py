@@ -38,8 +38,8 @@ class Einreichung(models.Model):
             else:
                 id = self.link.split("v=")[1]
 
-            requestlink = ("https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+str(id)+"&key="+str(settings.Youtube_Data_API_v3))
-            requestlink2 = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id="+str(id)+"&key="+str(settings.Youtube_Data_API_v3))
+            requestlink = ("https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+str(id)+"&key="+str(settings.GOOGLE_API_KEY))
+            requestlink2 = ("https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id="+str(id)+"&key="+str(settings.GOOGLE_API_KEY))
 
             r = requests.get(requestlink)
             r2 = requests.get(requestlink2)
@@ -101,5 +101,7 @@ def post_model_created_or_updated(sender, **kwargs):
     instance = kwargs['instance']
     instance.checkAPIwasSuccessful()
 
-models.signals.pre_save.connect(pre_model_created_or_updated, sender=Einreichung)
-models.signals.post_save.connect(post_model_created_or_updated, sender=Einreichung)
+models.signals.pre_save.connect(
+    pre_model_created_or_updated, sender=Einreichung)
+models.signals.post_save.connect(
+    post_model_created_or_updated, sender=Einreichung)
