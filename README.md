@@ -2,6 +2,8 @@
 
 Choosemusic is a Django app.
 
+THIS IS TRASH, THAT'S WHY IT IS NOW ARCHIVED!
+
 ## Requirements
 
 Django Admin is installed and activated.
