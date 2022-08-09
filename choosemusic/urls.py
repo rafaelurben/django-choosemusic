@@ -5,19 +5,6 @@ from django.contrib.auth import views as auth_views
 
 ############
 
-try:
-    from django.contrib.auth.models import Group, Permission
-    choosemusic_admin, created = Group.objects.get_or_create(name='choosemusic_admin')
-    choosemusic_admin.permissions.add(Permission.objects.get(codename="add_einreichung"))
-    choosemusic_admin.permissions.add(Permission.objects.get(codename="view_einreichung"))
-    choosemusic_admin.permissions.add(Permission.objects.get(codename="change_einreichung"))
-    choosemusic_admin.permissions.add(Permission.objects.get(codename="delete_einreichung"))
-except:
-    pass
-
-############
-
-
 app_name = 'choosemusic'
 urlpatterns = [
     path('', views.home, name="home"),
