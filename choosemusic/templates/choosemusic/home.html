@@ -64,11 +64,14 @@
            </a>
 
            {% if user.is_authenticated %}
-           <a href="{% url 'choosemusic:logout' %}">
-               <div id="logout">
-                   <img class="icon" src="{% static 'choosemusic/images/icon_admin.png' %}">
-               </div>
-           </a>
+           <form method="post" action="{% url 'choosemusic:logout' %}">
+                {% csrf_token %}
+                <a onclick="this.parentNode.submit();">
+                    <div id="logout">
+                        <img class="icon" src="{% static 'choosemusic/images/icon_admin.png' %}">
+                    </div>
+                </a>
+            </form>
            {% else %}
            <a href="{% url 'choosemusic:login' %}">
                <div id="login">
